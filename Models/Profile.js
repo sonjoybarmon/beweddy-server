@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 // const bcrypt = require("bcrypt");
 // const User = require('./user')
 
-const questionSchema = new mongoose.Schema(
+
+
+
+
+
+const profileSchema = new mongoose.Schema(
   {
     your_firstname: {
       type: String,
@@ -65,4 +70,4 @@ const questionSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Question", questionSchema);
+module.exports = mongoose.model("Profile", profileSchema);

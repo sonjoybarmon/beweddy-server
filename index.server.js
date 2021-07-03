@@ -14,7 +14,7 @@ const app = express();
 //routes section
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin/auth");
-const questionRoutes = require("./routes/questions");
+const profileRoutes = require("./routes/profile");
 const indexRoutes = require("./routes/index");
 //database connection with mongoose ODM
 
@@ -40,10 +40,13 @@ app.use(cors());
 app.use(express.json());
 
 //declaring API for production
+
 app.use("/", indexRoutes);
 app.use("/api", authRoutes);
 app.use("/api", adminRoutes);
-app.use("/api", questionRoutes);
+app.use("/api/profile", profileRoutes);
+
+
 //listen section
 app.listen(process.env.PORT, () =>
   console.log(`Server is running on this ${process.env.PORT}`)
