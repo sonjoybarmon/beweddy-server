@@ -15,6 +15,7 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin/auth");
 const questionRoutes = require("./routes/questions");
+const indexRoutes = require("./routes/index");
 //database connection with mongoose ODM
 
 // `mongodb://localhost:27017/beweddy`,
@@ -39,6 +40,7 @@ app.use(cors());
 app.use(express.json());
 
 //declaring API for production
+app.use("/", indexRoutes);
 app.use("/api", authRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", questionRoutes);
