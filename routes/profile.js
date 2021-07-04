@@ -1,13 +1,18 @@
 const express = require("express");
-const { protect } = require("../common-middleware");
 const router = express.Router();
 
 //controller
 const profileController = require("../Controllers/profileController");
 
+//authentication middleware
+const { protect } = require("../common-middleware/index");
+//validation middleware
+const { checkProfile, profileValidationResult } = require("../validators/profileValidators");
 
-router.post("/", profileController.create);
-router.get("/dashboard/:slug", profileController.getDashboardBySlug);
+
+router.post("/", [protect, checkProfile, profileValidationResult], profileController.create);
+router.get("/:slug", protect, profileController.getSingle);
+
 router.get("/dashboard/:profileId", profileController.getDashboardDetailsById);
 router.get("/dashboard/getDashboardAllData", profileController.getDashboardAllData);
 

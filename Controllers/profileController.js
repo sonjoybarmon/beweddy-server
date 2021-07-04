@@ -56,16 +56,24 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.getDashboardBySlug = (req, res) => {
-  const { slug } = req.params;
-  Profile.findOne({ slug }).exec((error, profile) => {
-    if (error) {
-      return res.status(400).json({ error });
+
+
+exports.getSingle = async(req, res) => {
+  
+  try {
+
+    const { slug } = req.params;
+    const profile = await Profile.findOne({ slug });
+    if(!profile){
+
+      return res.send({ success: false, message: "Your profile not found"});
     }
-    if (profile) {
-      if (profile) res.status(200).json({ profile });
-    }
-  });
+    res.send({ success: true, profile});
+    
+  } catch (error) {
+    
+    res.send({ success: false, message: error.message });
+  }
 };
 
 exports.getDashboardDetailsById = (req, res) => {

@@ -34,22 +34,28 @@ const profileSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      min: 2,
+      min: 3,
       max: 20,
     },
     wedding_day: {
       type: Object,
       required: true,
     },
-    way_of_invitation: {
-      type: String,
-      required: true,
-      enum: {
-        values: ["text", "email", "mail_out"],
-        message:
-          "Please provide text invitation or emil invitation or mail out invitation",
-      },
-    },
+    // way_of_invitation: {
+    //   type: String,
+    //   required: true,
+    //   enum: {
+    //     values: ["text", "email", "mail_out", "all_the_above"],
+    //     message:
+    //       "Please provide text invitation or emil invitation or mail out invitation or All the above",
+    //   },
+    // },
+    way_of_invitation: [
+      {
+        type: String,
+        required: true,
+      }
+    ],
     incoming_guest: {
       type: Number,
       required: true,
