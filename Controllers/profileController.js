@@ -3,9 +3,6 @@ const Profile = require("../Models/Profile");
 const shortid = require("shortid");
 const slugify = require("slugify");
 
-
-
-
 exports.create = async (req, res) => {
   console.log(req.body, "body");
 
@@ -19,7 +16,6 @@ exports.create = async (req, res) => {
   //dashboard
 
   try {
-
     const {
       husband_firstname,
       husband_lastname,
@@ -29,7 +25,7 @@ exports.create = async (req, res) => {
       incoming_guest,
       way_of_invitation,
       // dashboard,
-    } = req.body;
+    } = req.body.data;
 
     const profile = new Profile({
       husband_firstname,
@@ -40,7 +36,16 @@ exports.create = async (req, res) => {
       incoming_guest,
       way_of_invitation,
       // dashboard,
-      slug: slugify(husband_firstname +"-"+ husband_lastname+"-" + spouse_firstname+"-" + spouse_lastname+"-" + "marriage",
+      slug: slugify(
+        husband_firstname +
+          "-" +
+          husband_lastname +
+          "-" +
+          spouse_firstname +
+          "-" +
+          spouse_lastname +
+          "-" +
+          "marriage",
         {
           lower: true,
         }
@@ -49,29 +54,20 @@ exports.create = async (req, res) => {
 
     await profile.save();
     res.send({ success: true, profile });
-
   } catch (error) {
-
-    res.status(500).send({ success: false, message: error.message });
+    res.status(400).send({ success: false, message: error });
   }
 };
 
-
-
-exports.getSingle = async(req, res) => {
-
+exports.getSingle = async (req, res) => {
   try {
-
     const { slug } = req.params;
     const profile = await Profile.findOne({ slug });
-    if(!profile){
-
-      return res.send({ success: false, message: "Your profile not found"});
+    if (!profile) {
+      return res.send({ success: false, message: "Your profile not found" });
     }
-    res.send({ success: true, profile});
-
+    res.send({ success: true, profile });
   } catch (error) {
-
     res.send({ success: false, message: error.message });
   }
 };
