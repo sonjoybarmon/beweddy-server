@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 
 
-exports.signup = (req, res) => {
+exports.signup = async(req, res) => {
 
     try {
 
