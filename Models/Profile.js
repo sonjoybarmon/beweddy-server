@@ -60,10 +60,10 @@ const profileSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    dashboard: {
-      type: String,
-      required: true,
-    },
+    // dashboard: {
+    //   type: String,
+    //   required: true,
+    // },
     slug: {
       type: String,
       required: true,

@@ -19,7 +19,7 @@ exports.create = async (req, res) => {
   //dashboard
 
   try {
-    
+
     const {
       husband_firstname,
       husband_lastname,
@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
       wedding_day,
       incoming_guest,
       way_of_invitation,
-      dashboard,
+      // dashboard,
     } = req.body;
 
     const profile = new Profile({
@@ -39,8 +39,8 @@ exports.create = async (req, res) => {
       wedding_day,
       incoming_guest,
       way_of_invitation,
-      dashboard,
-      slug: slugify(husband_firstname + husband_lastname + spouse_firstname + spouse_lastname + "marriage",
+      // dashboard,
+      slug: slugify(husband_firstname +"-"+ husband_lastname+"-" + spouse_firstname+"-" + spouse_lastname+"-" + "marriage",
         {
           lower: true,
         }
@@ -59,7 +59,7 @@ exports.create = async (req, res) => {
 
 
 exports.getSingle = async(req, res) => {
-  
+
   try {
 
     const { slug } = req.params;
@@ -69,9 +69,9 @@ exports.getSingle = async(req, res) => {
       return res.send({ success: false, message: "Your profile not found"});
     }
     res.send({ success: true, profile});
-    
+
   } catch (error) {
-    
+
     res.send({ success: false, message: error.message });
   }
 };
