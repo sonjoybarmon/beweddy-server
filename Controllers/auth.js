@@ -2,35 +2,46 @@ const User = require("../Models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+
+
+
 exports.signup = (req, res) => {
-    User.findOne({ email: req.body.email }).exec(async (error, user) => {
-        if (user)
-            return res.status(400).json({
-                message: "user already exists",
-            });
+
+    try {
+
+        const foundUser = await User.findOne({ email: req.body.email });
+        if(foundUser){
+
+            return res.send({ success: false, message: "User already exists"});
+        }
+
         const { firstName, lastName, email, password } = req.body;
         const hash_password = await bcrypt.hash(password, 10);
-        const _user = new User({
+        const user = new User({
             firstName,
             lastName,
             email,
             hash_password,
             username: Math.random().toString(),
         });
-        _user.save((error, data) => {
-            if (error) {
-                return res.status(400).json({ message: "Something went wrong" });
-            }
-            if (data) {
-                return res.status(201).json({
-                    message: "user created successfully",
-                });
-            }
-        });
-    });
+
+        await user.save();
+        // console.log(user, "user");
+
+        //generate token
+        const token = jwt.sign({ firstName, lastName, email,  role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+        res.send({ success: true, token, data: { firstName, lastName, email, role: user.role } });
+        
+    } catch (error) {
+        
+        res.send({ success: false, message: error.message });
+    }
 };
 
+
 exports.signin = (req, res) => {
+
     User.findOne({ email: req.body.email }).exec((error, user) => {
         if (error)
             return res.status(400).json({

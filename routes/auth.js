@@ -1,11 +1,16 @@
 const express = require("express");
+const router = express.Router();
+
+
 const { signup, signin, getAllUsers } = require("../Controllers/auth");
+
 const {
     validateSignupRequest,
     isRequestValidate,
     validateSigninRequest,
 } = require("../validators/auth");
-const router = express.Router();
+
+
 
 router.post("/signin", validateSigninRequest, isRequestValidate, signin);
 router.post("/signup", validateSignupRequest, isRequestValidate, signup);
