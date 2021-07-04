@@ -29,7 +29,7 @@ exports.signup = async(req, res) => {
         // console.log(user, "user");
 
         //generate token
-        const token = jwt.sign({ firstName, lastName, email,  role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = await jwt.sign({ firstName, lastName, email,  role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
         res.send({ success: true, token, data: { firstName, lastName, email, role: user.role } });
         
