@@ -9,14 +9,14 @@ const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema(
   {
-    your_firstname: {
+    husband_firstname: {
       type: String,
       required: true,
       trim: true,
       min: 3,
       max: 20,
     },
-    your_lastname: {
+    husband_lastname: {
       type: String,
       required: true,
       trim: true,
@@ -27,7 +27,7 @@ const profileSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      min: 2,
+      min: 3,
       max: 20,
     },
     spouse_lastname: {

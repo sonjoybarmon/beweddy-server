@@ -21,8 +21,8 @@ exports.create = async (req, res) => {
   try {
     
     const {
-      your_firstname,
-      your_lastname,
+      husband_firstname,
+      husband_lastname,
       spouse_firstname,
       spouse_lastname,
       wedding_day,
@@ -32,20 +32,15 @@ exports.create = async (req, res) => {
     } = req.body;
 
     const profile = new Profile({
-      your_firstname,
-      your_lastname,
+      husband_firstname,
+      husband_lastname,
       spouse_firstname,
       spouse_lastname,
       wedding_day,
       incoming_guest,
       way_of_invitation,
       dashboard,
-      slug: slugify(
-        your_firstname +
-          your_lastname +
-          spouse_firstname +
-          spouse_lastname +
-          "marriage",
+      slug: slugify(husband_firstname + husband_lastname + spouse_firstname + spouse_lastname + "marriage",
         {
           lower: true,
         }
