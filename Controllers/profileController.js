@@ -3,8 +3,11 @@ const Profile = require("../Models/Profile");
 const shortid = require("shortid");
 const slugify = require("slugify");
 
+
+
+
 exports.create = async (req, res) => {
-  console.log(req.body, "body");
+  // console.log(req.body, "body");
 
   //husband_firstname
   //husband_lastname/
@@ -54,8 +57,10 @@ exports.create = async (req, res) => {
 
     await profile.save();
     res.send({ success: true, profile });
+
   } catch (error) {
-    res.status(400).send({ success: false, message: error });
+
+    res.status(400).send({ success: false, message: error.message });
   }
 };
 

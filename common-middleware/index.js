@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const shortid = require("shortid");
 const path = require("path");
-
+const User = require("../Models/user");
 
 
 const storage = multer.diskStorage({
@@ -18,12 +18,13 @@ exports.upload = multer({ storage });
 
 
 //jwt token middleware for required sign in
-exports.protect = (req, res, next) => {
+exports.protect = async(req, res, next) => {
 
   if (req.headers.authorization) {
 
     const token = req.headers.authorization.split(" ")[1];
-    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded._id);
     req.user = user;
     next();
 

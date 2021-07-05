@@ -26,12 +26,12 @@ exports.signup = async(req, res) => {
         });
 
         await user.save();
-        // console.log(user, "user");
+        console.log(user, "user");
 
         //generate token
-        const token = await jwt.sign({ firstName, lastName, email,  role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ _id: user._id,  role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-        res.send({ success: true, token, data: { firstName, lastName, email, role: user.role } });
+        res.send({ success: true, token });
         
     } catch (error) {
         
