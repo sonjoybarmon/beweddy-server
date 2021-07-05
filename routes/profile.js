@@ -13,7 +13,7 @@ const {
 } = require("../validators/profileValidators");
 
 // router.post("/", [protect, checkProfile, profileValidationResult], profileController.create);
-router.post("/", profileController.create);
+router.post("/", protect, profileController.create);
 router.get("/:slug", protect, profileController.getSingle);
 
 router.get("/dashboard/:profileId", profileController.getDashboardDetailsById);
