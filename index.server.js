@@ -36,7 +36,13 @@ mongoose
 
 //middleware section
 app.use(morgan("dev"));
-app.use(cors());
+// Enable cors
+app.use(
+  cors({
+    origin: [process.env.ORIGIN || 'http://localhost:3000', 'http://localhost:3000'],
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  })
+);
 app.use(express.json());
 
 //declaring API for production
